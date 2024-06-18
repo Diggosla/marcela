@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para minha branquinha</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffcc33, #ff66cc);
+            color: #ffffff;
+            animation: changeBackground 10s linear infinite alternate; /* Animação para mudança de fundo */
+        }
+
+        @keyframes changeBackground {
+            0% {
+                background-color: #ffcc33;
+            }
+            50% {
+                background-color: #ff66cc;
+            }
+            100% {
+                background-color: #ffcc33;
+            }
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            max-width: 80%; /* Definindo uma largura máxima para o conteúdo */
+            margin: auto; /* Centralizando o conteúdo na tela */
+            padding: 20px; /* Adicionando espaçamento interno */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adicionando sombra para destacar o conteúdo */
+            border-radius: 10px; /* Arredondando as bordas do container */
+        }
+
+        #initialMessage {
+            font-size: 1.5rem;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            margin-bottom: 20px;
+        }
+
+        #initialMessage.hide {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        #counter {
+            font-size: 2rem;
+            margin-top: 20px;
+            animation: counterAnimation 1s ease-in-out;
+        }
+
+        @keyframes counterAnimation {
+            0% {
+                transform: scale(1);
+                color: #ffffff;
+            }
+            50% {
+                transform: scale(1.5);
+                color: #ffcc33;
+            }
+            100% {
+                transform: scale(1);
+                color: #ffffff;
+            }
+        }
+
+        .message {
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            display: none;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message.large {
+            font-size: 1.2rem;
+        }
+
+        .message.small {
+            font-size: 0.9rem;
+        }
+
+        .fade-in {
+            animation: fadeInAnimation 1s ease-out forwards;
+        }
+
+        @keyframes fadeInAnimation {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: #ffcc33;
+        }
+
+        /* Estilos para o botão */
+        #startButton {
+            background-color: #ffffff;
+            color: #ff66cc;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            outline: none; /* Remove o contorno padrão do botão */
+        }
+
+        #startButton:hover {
+            background-color: #ff66cc;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* Estilos para as imagens */
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap; /* Permite que as imagens quebrem para a próxima linha em telas menores */
+        }
+
+        .image-container img {
+            width: 150px; /* Largura fixa para as imagens */
+            height: 150px; /* Altura fixa para as imagens */
+            object-fit: cover; /* Mantém a proporção da imagem e corta o excesso */
+            margin: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-out;
+            cursor: pointer;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1) rotate(-45deg) translateY(-20px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="initialMessage">oi marcelaa,clique no botçao para sorrir!!😉❤️</div>
+        <button id="startButton">Aquii!👍</button>
+        <div id="counter"></div>
+        <div id="message1" class="message large"></div>
+        <div id="message2" class="message small"></div>
+        <div class="image-container" id="imageContainer" style="display: none;">
+            <!-- Incluí as imagens conforme solicitado -->
+            <img src="img/nois1.jpeg" alt="Imagem 1">
+            <img src="img/cato.jpeg" alt="Imagem 2">
+            <img src="img/nois2.jpeg" alt="Imagem 3">
+        </div>
+    </div>
+    <script>
+        document.getElementById('startButton').addEventListener('click', startCounter);
+
+        function startCounter() {
+            let buttonElement = document.getElementById('startButton');
+            let initialMessageElement = document.getElementById('initialMessage');
+            let counterElement = document.getElementById('counter');
+            let message1Element = document.getElementById('message1');
+            let message2Element = document.getElementById('message2');
+            let imageContainer = document.getElementById('imageContainer');
+            let count = 3; // Começa a contagem em 3
+
+            // Esconde o botão e a mensagem inicial após o botão ser clicado
+            buttonElement.style.display = 'none';
+            initialMessageElement.classList.add('hide'); // Esconde a mensagem inicial
+
+            counterElement.textContent = count;
+            message1Element.style.display = 'none';
+            message2Element.style.display = 'none';
+
+            let interval = setInterval(() => {
+                counterElement.style.animation = 'none'; // Remove a animação
+                counterElement.offsetHeight; // Trigger reflow
+                counterElement.style.animation = ''; // Reaplica a animação
+
+                count--;
+                if (count < 1) { // Altera a condição para parar a contagem em 1
+                    clearInterval(interval);
+                    counterElement.textContent = '';
+
+                    // Mostra as mensagens
+                    message1Element.textContent = 'Quero q vc saiba q eu sou mt apaixonado por vc,cada dia q passa fico mais apaixonado ainda.❤️';
+                    message1Element.style.display = 'block';
+                    message1Element.classList.add('fade-in', 'large');
+
+                    message2Element.innerHTML = 'clique <a href="https://open.spotify.com/track/66fVMFVA9WGRtwLCaF93U5?si=APxVYVqPSjeJ8Jgs68lEkA" target="_blank">Aqui</a> para escutar uma musica muito bacana👍(espero q esteja feliz😁).';
+                    message2Element.style.display = 'block';
+                    message2Element.classList.add('fade-in', 'small');
+
+                    // Mostra as imagens
+                    imageContainer.style.display = 'flex';
+                    imageContainer.classList.add('fade-in');
+                } else {
+                    counterElement.textContent = count;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
